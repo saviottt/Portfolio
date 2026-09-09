@@ -91,14 +91,13 @@
            3D CELL FRAME & ANIMATIONS
            ========================================================= */
 
-        /* Stage centering and 3D perspective */
+        /* Stage — bottom-aligned so image touches the page footer */
         .cell-stage {
             position: absolute;
-            top: 50%;
+            bottom: 0;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateX(-50%);
             z-index: 10;
-            perspective: 1400px;
             pointer-events: auto;
             cursor: grab;
             user-select: none;
@@ -108,95 +107,15 @@
             cursor: grabbing;
         }
 
-        /* Ambient floating levitation */
-        .cell-float-wrapper {
-            transform-style: preserve-3d;
-            animation: cellLevitate 7s ease-in-out infinite;
-            will-change: transform;
-        }
-
-        @keyframes cellLevitate {
-            0% {
-                transform: translateY(0px) rotateZ(0deg);
-            }
-
-            25% {
-                transform: translateY(-14px) rotateZ(0.8deg);
-            }
-
-            50% {
-                transform: translateY(-24px) rotateZ(-0.4deg);
-            }
-
-            75% {
-                transform: translateY(-10px) rotateZ(-1deg);
-            }
-
-            100% {
-                transform: translateY(0px) rotateZ(0deg);
-            }
-        }
-
-        /* Dynamic contact shadow beneath 3D cell */
-        .cell-shadow {
-            position: absolute;
-            bottom: -55px;
-            left: 10%;
-            width: 80%;
-            height: 45px;
-            border-radius: 50%;
-            background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.18) 45%, rgba(0, 0, 0, 0) 75%);
-            filter: blur(16px);
-            transform: translateZ(-80px);
-            pointer-events: none;
-            animation: shadowPulse 7s ease-in-out infinite;
-            transition: opacity 0.3s ease;
-        }
-
-        @keyframes shadowPulse {
-
-            0%,
-            100% {
-                transform: translateZ(-80px) scale(0.95);
-                opacity: 0.65;
-            }
-
-            50% {
-                transform: translateZ(-80px) scale(0.78);
-                opacity: 0.38;
-                filter: blur(22px);
-            }
-        }
-
-        /* Main 3D Card Chassis */
-        .cell-3d {
+        /* Portrait Image — plain, no frame */
+        .portrait-img {
             position: relative;
-            width: 360px;
-            height: 400px;
-            transform-style: preserve-3d;
-            transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
-            will-change: transform;
-        }
-
-        /* Floating Image */
-        .cell-image {
-            width: 100%;
-            height: 100%;
+            height: 100vh;
+            width: auto;
             object-fit: cover;
             display: block;
             border-radius: 38px;
-            box-shadow:
-                0 35px 70px -15px rgba(0, 0, 0, 0.32),
-                0 15px 30px -5px rgba(0, 0, 0, 0.18);
-            transform: translateZ(16px);
-            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease;
-            filter: contrast(1.04) brightness(1.02);
-            will-change: transform;
-        }
-
-        .cell-stage:hover .cell-image {
-            transform: translateZ(28px) scale(1.03);
-            filter: contrast(1.06) brightness(1.05);
+            z-index: 10;
         }
 
         /* =========================================================
@@ -207,22 +126,13 @@
            ORBITING TECH LOGOS SYSTEM
            ========================================================= */
 
-        /* Faint 3D orbital trajectory track */
+        /* Orbital trajectory track — hidden */
         .orbit-track {
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 760px;
-            height: 440px;
-            margin-left: -380px;
-            margin-top: -220px;
-            border-radius: 50%;
-            border: 1.5px dashed rgba(0, 0, 0, 0.12);
-            transform: rotateZ(-14deg);
+            border: none;
             pointer-events: none;
-            z-index: 3;
-            opacity: 0.55;
-            transition: width 0.3s ease, height 0.3s ease;
         }
 
         /* Orbit Node Anchors */
@@ -314,12 +224,9 @@
                 margin-right: 45px;
             }
 
-            .cell-3d {
-                width: 300px;
-                height: 340px;
-            }
-
-            .cell-image {
+            .portrait-img {
+                height: 100vh;
+                width: auto;
                 border-radius: 32px;
             }
 
@@ -365,12 +272,9 @@
                 margin-right: 25px;
             }
 
-            .cell-3d {
-                width: 235px;
-                height: 270px;
-            }
-
-            .cell-image {
+            .portrait-img {
+                height: 100vh;
+                width: auto;
                 border-radius: 28px;
             }
 
@@ -423,73 +327,65 @@
 
     </div>
 
-    <!-- 3D Interactive Cell Frame with Orbiting Logos -->
+    <!-- Portrait Image with Floating Logos -->
     <div class="cell-stage" id="cellStage">
-        <div class="cell-float-wrapper">
 
-            <!-- Faint 3D Orbital Trajectory Track -->
-            <div class="orbit-track" id="orbitTrack"></div>
+        <!-- Faint orbital track -->
+        <div class="orbit-track" id="orbitTrack"></div>
 
-            <!-- 3D Image (z-index: 10) -->
-            <div class="cell-3d" id="cell3D">
+        <!-- Plain portrait image -->
+        <img src="image.png" alt="Don Savio Thomas" class="portrait-img">
 
-                <!-- Dynamic contact shadow underneath -->
-                <div class="cell-shadow" id="cellShadow"></div>
-
-                <img src="image.jpeg" alt="Don Savio Thomas" class="cell-image">
-
+        <!-- 6 Orbiting Tech Nodes -->
+        <div class="orbit-node" data-index="0" data-label="Flutter"
+            style="--accent: #02569B; --glow: rgba(2, 86, 155, 0.45);">
+            <div class="node-badge">
+                <img src="logos/flutter.png" alt="Flutter" class="node-logo">
+                <span class="node-tooltip">Flutter</span>
             </div>
-
-            <!-- 6 Orbiting Tech Nodes -->
-            <div class="orbit-node" data-index="0" data-label="Flutter"
-                style="--accent: #02569B; --glow: rgba(2, 86, 155, 0.45);">
-                <div class="node-badge">
-                    <img src="logos/flutter.png" alt="Flutter" class="node-logo">
-                    <span class="node-tooltip">Flutter</span>
-                </div>
-            </div>
-
-            <div class="orbit-node" data-index="1" data-label="Git"
-                style="--accent: #F05032; --glow: rgba(240, 80, 50, 0.45);">
-                <div class="node-badge">
-                    <img src="logos/git.png" alt="Git" class="node-logo">
-                    <span class="node-tooltip">Git</span>
-                </div>
-            </div>
-
-            <div class="orbit-node" data-index="2" data-label="HTML5"
-                style="--accent: #E34F26; --glow: rgba(227, 79, 38, 0.45);">
-                <div class="node-badge">
-
-                    <span class="node-tooltip">HTML5</span>
-                </div>
-            </div>
-
-            <div class="orbit-node" data-index="3" data-label="JavaScript"
-                style="--accent: #E5A800; --glow: rgba(247, 223, 30, 0.5);">
-                <div class="node-badge">
-                    <img src="logos/javascript.png" alt="JavaScript" class="node-logo">
-                    <span class="node-tooltip">JavaScript</span>
-                </div>
-            </div>
-
-            <div class="orbit-node" data-index="4" data-label="MySQL"
-                style="--accent: #00758F; --glow: rgba(0, 117, 143, 0.45);">
-                <div class="node-badge">
-                    <img src="logos/mysql.png" alt="MySQL" class="node-logo">
-                    <span class="node-tooltip">MySQL</span>
-                </div>
-            </div>
-
-            <div class="orbit-node" data-index="5" data-label="VS Code"
-                style="--accent: #007ACC; --glow: rgba(0, 122, 204, 0.45);">
-                <div class="node-badge">
-                    <img src="logos/vscode.png" alt="VS Code" class="node-logo">
-                    <span class="node-tooltip">VS Code</span>
-                </div>
-            </div>
-
         </div>
+
+        <div class="orbit-node" data-index="1" data-label="Git"
+            style="--accent: #F05032; --glow: rgba(240, 80, 50, 0.45);">
+            <div class="node-badge">
+                <img src="logos/git.png" alt="Git" class="node-logo">
+                <span class="node-tooltip">Git</span>
+            </div>
+        </div>
+
+        <div class="orbit-node" data-index="2" data-label="HTML5"
+            style="--accent: #E34F26; --glow: rgba(227, 79, 38, 0.45);">
+            <div class="node-badge">
+
+                <span class="node-tooltip">HTML5</span>
+            </div>
+        </div>
+
+        <div class="orbit-node" data-index="3" data-label="JavaScript"
+            style="--accent: #E5A800; --glow: rgba(247, 223, 30, 0.5);">
+            <div class="node-badge">
+                <img src="logos/javascript.png" alt="JavaScript" class="node-logo">
+                <span class="node-tooltip">JavaScript</span>
+            </div>
+        </div>
+
+        <div class="orbit-node" data-index="4" data-label="MySQL"
+            style="--accent: #00758F; --glow: rgba(0, 117, 143, 0.45);">
+            <div class="node-badge">
+                <img src="logos/mysql.png" alt="MySQL" class="node-logo">
+                <span class="node-tooltip">MySQL</span>
+            </div>
+        </div>
+
+        <div class="orbit-node" data-index="5" data-label="VS Code"
+            style="--accent: #007ACC; --glow: rgba(0, 122, 204, 0.45);">
+            <div class="node-badge">
+                <img src="logos/vscode.png" alt="VS Code" class="node-logo">
+                <span class="node-tooltip">VS Code</span>
+            </div>
+        </div>
+
+    </div>
     </div>
 
     <!-- Floating Logo Animation Script -->
