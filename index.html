@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Don Savio Thomas</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: white;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Moving Name Background */
+        .marquee {
+            position: absolute;
+            top: 50%;
+            left: 0;
+
+            width: 100%;
+            height: 330px;
+
+            transform: translateY(-50%);
+
+            overflow: hidden;
+
+            z-index: 1;
+        }
+
+        .marquee-track {
+            display: flex;
+            width: max-content;
+
+            animation: moveName 150s linear infinite;
+        }
+
+        .moving-name {
+            flex-shrink: 0;
+
+            font-family: "Arial Black", Impact, Haettenschweiler,
+                "Arial Narrow Bold", sans-serif;
+
+            font-size: 320px;
+
+            font-weight: 900;
+
+            color: #000;
+
+            -webkit-text-stroke: 5px #000;
+
+            letter-spacing: -20px;
+
+            line-height: 0.72;
+
+            margin-right: 60px;
+
+            padding: 0;
+        }
+
+        @keyframes moveName {
+            from {
+                transform: translateX(-20vw);
+            }
+
+            to {
+                transform: translateX(calc(-50% - 20vw));
+            }
+        }
+
+        /* =========================================================
+           3D CELL FRAME & ANIMATIONS
+           ========================================================= */
+
+        /* Stage centering and 3D perspective */
+        .cell-stage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            perspective: 1400px;
+            pointer-events: auto;
+            cursor: grab;
+            user-select: none;
+        }
+
+        .cell-stage:active {
+            cursor: grabbing;
+        }
+
+        /* Ambient floating levitation */
+        .cell-float-wrapper {
+            transform-style: preserve-3d;
+            animation: cellLevitate 7s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        @keyframes cellLevitate {
+            0% {
+                transform: translateY(0px) rotateZ(0deg);
+            }
+            25% {
+                transform: translateY(-14px) rotateZ(0.8deg);
+            }
+            50% {
+                transform: translateY(-24px) rotateZ(-0.4deg);
+            }
+            75% {
+                transform: translateY(-10px) rotateZ(-1deg);
+            }
+            100% {
+                transform: translateY(0px) rotateZ(0deg);
+            }
+        }
+
+        /* Dynamic contact shadow beneath 3D cell */
+        .cell-shadow {
+            position: absolute;
+            bottom: -55px;
+            left: 10%;
+            width: 80%;
+            height: 45px;
+            border-radius: 50%;
+            background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.18) 45%, rgba(0, 0, 0, 0) 75%);
+            filter: blur(16px);
+            transform: translateZ(-80px);
+            pointer-events: none;
+            animation: shadowPulse 7s ease-in-out infinite;
+            transition: opacity 0.3s ease;
+        }
+
+        @keyframes shadowPulse {
+            0%, 100% {
+                transform: translateZ(-80px) scale(0.95);
+                opacity: 0.65;
+            }
+            50% {
+                transform: translateZ(-80px) scale(0.78);
+                opacity: 0.38;
+                filter: blur(22px);
+            }
+        }
+
+        /* Main 3D Card Chassis */
+        .cell-3d {
+            position: relative;
+            width: 440px;
+            height: 490px;
+            transform-style: preserve-3d;
+            transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
+            will-change: transform;
+        }
+
+        .cell-chassis {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            background: linear-gradient(140deg,
+                rgba(255, 255, 255, 0.95) 0%,
+                rgba(242, 244, 248, 0.88) 35%,
+                rgba(224, 229, 238, 0.92) 75%,
+                rgba(205, 212, 224, 0.98) 100%);
+            border-radius: 38px;
+            padding: 22px 22px 24px 22px;
+            box-shadow:
+                0 35px 70px -15px rgba(0, 0, 0, 0.32),
+                0 15px 30px -5px rgba(0, 0, 0, 0.18),
+                0 0 0 1.5px rgba(255, 255, 255, 0.9),
+                inset 0 2px 4px rgba(255, 255, 255, 0.9),
+                inset 0 -3px 8px rgba(0, 0, 0, 0.12);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Outer Glow / Rim Aura */
+        .cell-glow {
+            position: absolute;
+            inset: -4px;
+            border-radius: 42px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.35), rgba(168, 85, 247, 0.25), rgba(236, 72, 153, 0.3));
+            filter: blur(20px);
+            opacity: 0.55;
+            z-index: -1;
+            transform: translateZ(-15px);
+            transition: opacity 0.5s ease, filter 0.5s ease;
+        }
+
+        .cell-stage:hover .cell-glow {
+            opacity: 0.85;
+            filter: blur(26px);
+        }
+
+        /* Corner Tech Brackets */
+        .cell-corner {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-color: rgba(0, 0, 0, 0.35);
+            border-style: solid;
+            pointer-events: none;
+            transform: translateZ(28px);
+            transition: border-color 0.3s ease;
+        }
+
+        .corner-tl {
+            top: 10px;
+            left: 10px;
+            border-width: 2.5px 0 0 2.5px;
+            border-top-left-radius: 12px;
+        }
+
+        .corner-tr {
+            top: 10px;
+            right: 10px;
+            border-width: 2.5px 2.5px 0 0;
+            border-top-right-radius: 12px;
+        }
+
+        .corner-bl {
+            bottom: 10px;
+            left: 10px;
+            border-width: 0 0 2.5px 2.5px;
+            border-bottom-left-radius: 12px;
+        }
+
+        .corner-br {
+            bottom: 10px;
+            right: 10px;
+            border-width: 0 2.5px 2.5px 0;
+            border-bottom-right-radius: 12px;
+        }
+
+        .bolt {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #bbb, #555);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+        }
+
+        .corner-tl .bolt { top: 3px; left: 3px; }
+        .corner-tr .bolt { top: 3px; right: 3px; }
+        .corner-bl .bolt { bottom: 3px; left: 3px; }
+        .corner-br .bolt { bottom: 3px; right: 3px; }
+
+        /* Cell Header & Footer Badges */
+        .cell-header-badge {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8px 10px 8px;
+            transform: translateZ(32px);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            color: rgba(20, 20, 20, 0.75);
+            text-transform: uppercase;
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 8px #10b981;
+            animation: pulseStatus 2.2s infinite ease-in-out;
+        }
+
+        @keyframes pulseStatus {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.45;
+                transform: scale(0.85);
+            }
+        }
+
+        .cell-footer-badge {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 8px 0 8px;
+            transform: translateZ(32px);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: rgba(20, 20, 20, 0.6);
+            text-transform: uppercase;
+        }
+
+        /* Recessed Inner Chamber / Screen Bezel */
+        .cell-inner-chamber {
+            position: relative;
+            flex: 1;
+            width: 100%;
+            border-radius: 26px;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transform: translateZ(24px);
+            background: #0d1117;
+            box-shadow:
+                inset 0 6px 18px rgba(0, 0, 0, 0.7),
+                inset 0 -2px 8px rgba(255, 255, 255, 0.35),
+                0 6px 16px rgba(0, 0, 0, 0.22);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+        }
+
+        /* Elevated Portrait Image with true 3D Parallax */
+        .cell-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 24px;
+            transform: translateZ(16px) scale(1.03);
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease;
+            filter: contrast(1.04) brightness(1.02);
+            will-change: transform;
+        }
+
+        .cell-stage:hover .cell-image {
+            transform: translateZ(28px) scale(1.06);
+            filter: contrast(1.06) brightness(1.05);
+        }
+
+        /* Subtle Holographic Scanlines in Chamber */
+        .cell-scanlines {
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            background: linear-gradient(
+                rgba(255, 255, 255, 0) 50%,
+                rgba(0, 0, 0, 0.08) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            opacity: 0.5;
+            transform: translateZ(32px);
+        }
+
+        /* Specular Glass Overlay with Dynamic Glare */
+        .cell-glare {
+            position: absolute;
+            inset: 0;
+            border-radius: 38px;
+            background: radial-gradient(
+                circle at 40% 30%,
+                rgba(255, 255, 255, 0.55) 0%,
+                rgba(255, 255, 255, 0.18) 35%,
+                rgba(255, 255, 255, 0) 70%
+            );
+            pointer-events: none;
+            transform: translateZ(48px);
+            mix-blend-mode: overlay;
+            opacity: 0.75;
+            transition: opacity 0.3s ease, background 0.1s linear;
+        }
+
+        .cell-stage:hover .cell-glare {
+            opacity: 0.95;
+        }
+
+        /* =========================================================
+           RESPONSIVE BREAKPOINTS
+           ========================================================= */
+
+        /* Medium screens */
+        @media (max-width: 1200px) {
+
+            .marquee {
+                height: 270px;
+            }
+
+            .moving-name {
+                font-size: 270px;
+                letter-spacing: -17px;
+
+                -webkit-text-stroke: 4px #000;
+
+                margin-right: 45px;
+            }
+
+            .cell-3d {
+                width: 360px;
+                height: 410px;
+            }
+
+            .cell-chassis {
+                padding: 18px 18px 20px 18px;
+                border-radius: 32px;
+            }
+
+            .cell-glare {
+                border-radius: 32px;
+            }
+
+            .cell-header-badge {
+                font-size: 10px;
+                letter-spacing: 2px;
+                padding-bottom: 8px;
+            }
+
+            .cell-footer-badge {
+                font-size: 9px;
+                letter-spacing: 1.5px;
+                padding-top: 8px;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+
+            .marquee {
+                height: 170px;
+            }
+
+            .moving-name {
+                font-size: 155px;
+                letter-spacing: -9px;
+
+                -webkit-text-stroke: 3px #000;
+
+                margin-right: 25px;
+            }
+
+            .cell-3d {
+                width: 285px;
+                height: 330px;
+            }
+
+            .cell-chassis {
+                padding: 14px 14px 16px 14px;
+                border-radius: 28px;
+            }
+
+            .cell-glare {
+                border-radius: 28px;
+            }
+
+            .cell-inner-chamber {
+                border-radius: 20px;
+            }
+
+            .cell-image {
+                border-radius: 18px;
+            }
+
+            .cell-header-badge {
+                font-size: 9px;
+                letter-spacing: 1.5px;
+                padding-bottom: 6px;
+            }
+
+            .cell-footer-badge {
+                font-size: 8px;
+                letter-spacing: 1px;
+                padding-top: 6px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Moving Name Background -->
+    <div class="marquee">
+
+        <div class="marquee-track">
+
+            <div class="moving-name">DON SAVIO THOMAS</div>
+            <div class="moving-name">DON SAVIO THOMAS</div>
+            <div class="moving-name">DON SAVIO THOMAS</div>
+            <div class="moving-name">DON SAVIO THOMAS</div>
+
+            <div class="moving-name">DON SAVIO THOMAS</div>
+            <div class="moving-name">DON SAVIO THOMAS</div>
+            <div class="moving-name">DON SAVIO THOMAS</div>
+            <div class="moving-name">DON SAVIO THOMAS</div>
+
+        </div>
+
+    </div>
+
+    <!-- 3D Interactive Cell Frame -->
+    <div class="cell-stage" id="cellStage">
+        <div class="cell-float-wrapper">
+            <div class="cell-3d" id="cell3D">
+
+                <!-- Dynamic contact shadow underneath -->
+                <div class="cell-shadow" id="cellShadow"></div>
+
+                <!-- Main Frame Chassis -->
+                <div class="cell-chassis">
+
+                    <!-- Ambient Glow Aura -->
+                    <div class="cell-glow"></div>
+
+                    <!-- 4 Hardware / Tech Corner Brackets -->
+                    <div class="cell-corner corner-tl"><span class="bolt"></span></div>
+                    <div class="cell-corner corner-tr"><span class="bolt"></span></div>
+                    <div class="cell-corner corner-bl"><span class="bolt"></span></div>
+                    <div class="cell-corner corner-br"><span class="bolt"></span></div>
+
+                    <!-- Frame Header -->
+                    <div class="cell-header-badge">
+                        <span class="status-indicator">
+                            <span class="status-dot"></span>
+                            <span>LIVE CELL // 01</span>
+                        </span>
+                        <span>SAVIO.PORTRAIT</span>
+                    </div>
+
+                    <!-- Recessed Inner Chamber / Screen -->
+                    <div class="cell-inner-chamber">
+                        <img src="image.jpeg" alt="Don Savio Thomas" class="cell-image">
+                        <div class="cell-scanlines"></div>
+                    </div>
+
+                    <!-- Frame Footer -->
+                    <div class="cell-footer-badge">
+                        <span>DIM: 3D-PERSPECTIVE</span>
+                        <span>VER // 2.4.0</span>
+                    </div>
+
+                    <!-- Specular Glass Glare Shield -->
+                    <div class="cell-glare" id="cellGlare"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive 3D Tilt Script -->
+    <script>
+        (function () {
+            const cellStage = document.getElementById('cellStage');
+            const cell3D = document.getElementById('cell3D');
+            const cellGlare = document.getElementById('cellGlare');
+
+            let targetRotateX = 0;
+            let targetRotateY = 0;
+            let currentRotateX = 0;
+            let currentRotateY = 0;
+            let glareX = 40;
+            let glareY = 30;
+            let targetGlareX = 40;
+            let targetGlareY = 30;
+            let isHovered = false;
+
+            const MAX_TILT_DEG = 18;
+            const LERP_FACTOR = 0.08;
+
+            function updateMousePosition(clientX, clientY) {
+                const rect = cellStage.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+
+                // Normalize coordinates (-1 to 1) relative to window & stage
+                const normX = Math.max(-1, Math.min(1, (clientX - centerX) / (window.innerWidth * 0.45)));
+                const normY = Math.max(-1, Math.min(1, (clientY - centerY) / (window.innerHeight * 0.45)));
+
+                // Pitch (rotateX) is influenced by vertical position
+                // Yaw (rotateY) is influenced by horizontal position
+                targetRotateX = -normY * MAX_TILT_DEG;
+                targetRotateY = normX * MAX_TILT_DEG;
+
+                // Glare position (0% to 100%)
+                targetGlareX = 50 + normX * 40;
+                targetGlareY = 50 + normY * 40;
+            }
+
+            // Window-wide mouse tracking for natural perspective feel
+            window.addEventListener('mousemove', (e) => {
+                updateMousePosition(e.clientX, e.clientY);
+            });
+
+            // Touch support for mobile devices
+            window.addEventListener('touchmove', (e) => {
+                if (e.touches.length > 0) {
+                    updateMousePosition(e.touches[0].clientX, e.touches[0].clientY);
+                }
+            }, { passive: true });
+
+            cellStage.addEventListener('mouseenter', () => {
+                isHovered = true;
+            });
+
+            cellStage.addEventListener('mouseleave', () => {
+                isHovered = false;
+                targetRotateX = 0;
+                targetRotateY = 0;
+                targetGlareX = 40;
+                targetGlareY = 30;
+            });
+
+            // Animation render loop using smooth interpolation (lerp)
+            function animate() {
+                // Smooth interpolation towards targets
+                currentRotateX += (targetRotateX - currentRotateX) * LERP_FACTOR;
+                currentRotateY += (targetRotateY - currentRotateY) * LERP_FACTOR;
+
+                glareX += (targetGlareX - glareX) * LERP_FACTOR;
+                glareY += (targetGlareY - glareY) * LERP_FACTOR;
+
+                const liftZ = isHovered ? 25 : 0;
+
+                cell3D.style.transform = `rotateX(${currentRotateX.toFixed(2)}deg) rotateY(${currentRotateY.toFixed(2)}deg) translateZ(${liftZ}px)`;
+
+                cellGlare.style.background = `radial-gradient(circle at ${glareX.toFixed(1)}% ${glareY.toFixed(1)}%, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.2) 35%, rgba(255, 255, 255, 0) 70%)`;
+
+                requestAnimationFrame(animate);
+            }
+
+            requestAnimationFrame(animate);
+        })();
+    </script>
+</body>
+
+</html>
