@@ -461,6 +461,7 @@
             .about-inner {
                 gap: 50px;
             }
+
             .about-image {
                 width: 300px;
                 height: 370px;
@@ -471,16 +472,160 @@
             .about-section {
                 padding: 80px 28px;
             }
+
             .about-inner {
                 flex-direction: column;
                 gap: 40px;
             }
+
             .about-image {
                 width: 260px;
                 height: 320px;
             }
+
             .about-bio {
                 font-size: 16px;
+            }
+        }
+
+        /* =========================================================
+           SOCIAL PROFILES SECTION
+           ========================================================= */
+
+        .social-section {
+            width: 100%;
+            min-height: 100vh;
+            background: #000000;
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            justify-content: left;
+            padding: 100px 60px;
+            box-sizing: border-box;
+        }
+
+        .social-inner {
+            max-width: 1100px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .social-heading {
+            font-size: 70px;
+            font-weight: 900;
+            margin-bottom: 80px;
+            letter-spacing: 2px;
+            font-family: 'Outfit', -apple-system, sans-serif;
+        }
+
+        .social-heading span {
+            color: #ffffff;
+        }
+
+        .social-grid {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin: 0 auto;
+            border-radius: 50%;
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            animation: rotate-orbit 25s linear infinite;
+        }
+
+        .social-grid:hover {
+            animation-play-state: paused;
+        }
+
+        .social-grid:hover .social-card {
+            animation-play-state: paused;
+        }
+
+        .social-card {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            margin: -70px 0 0 -70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: none;
+            text-decoration: none;
+            animation: counter-rotate 25s linear infinite;
+        }
+
+        .social-card:nth-child(1) {
+            top: 0%;
+            left: 50%;
+        }
+
+        .social-card:nth-child(2) {
+            top: 50%;
+            left: 100%;
+        }
+
+        .social-card:nth-child(3) {
+            top: 100%;
+            left: 50%;
+        }
+
+        .social-card:nth-child(4) {
+            top: 50%;
+            left: 0%;
+        }
+
+        .social-card img {
+            width: 70%;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .social-card:hover img {
+            transform: scale(1.15);
+            filter: drop-shadow(0 8px 20px rgba(233, 30, 30, 0.6));
+        }
+
+        @keyframes rotate-orbit {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes counter-rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(-360deg);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .social-section {
+                padding: 80px 28px;
+            }
+
+            .social-heading {
+                font-size: 32px;
+                margin-bottom: 50px;
+            }
+
+            .social-grid {
+                width: 260px;
+                height: 260px;
+            }
+
+            .social-card {
+                width: 100px;
+                height: 100px;
+                margin: -50px 0 0 -50px;
             }
         }
     </style>
@@ -613,6 +758,28 @@
                     Get In Touch &rarr;
                 </a>
 
+            </div>
+        </div>
+    </section>
+
+    <!-- ======= Let's Connect SECTION ======= -->
+    <section class="social-section" id="social">
+        <div class="social-inner">
+            <h2 class="social-heading"> <span>Let's Connect</span></h2>
+            <div class="social-grid">
+                <a href="https://github.com/saviottt" class="social-card">
+                    <img src="socialmedia/github.png" alt="GitHub">
+                </a>
+                <a href="https://www.linkedin.com/in/don-savio-thomas-904174337/" class="social-card">
+                    <img src="socialmedia/linkedin.png" alt="LinkedIn">
+                </a>
+                <a href="https://www.instagram.com/donsavio_1?stkn=MWg2bTg1YW10Mm96MA==" class="social-card">
+                    <img src="socialmedia/instagram.png" alt="Instagram">
+                </a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=donsavio1one@gmail.com&su=Portfolio%20Contact"
+                    target="_blank" class="social-card">
+                    <img src="socialmedia/gmail.png" alt="Gmail">
+                </a>
             </div>
         </div>
     </section>
