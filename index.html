@@ -49,6 +49,11 @@
             animation: moveName 150s linear infinite;
         }
 
+        .don-red {
+            color: #e91e1e;
+            -webkit-text-stroke: 0;
+        }
+
         .moving-name {
             flex-shrink: 0;
 
@@ -114,15 +119,19 @@
             0% {
                 transform: translateY(0px) rotateZ(0deg);
             }
+
             25% {
                 transform: translateY(-14px) rotateZ(0.8deg);
             }
+
             50% {
                 transform: translateY(-24px) rotateZ(-0.4deg);
             }
+
             75% {
                 transform: translateY(-10px) rotateZ(-1deg);
             }
+
             100% {
                 transform: translateY(0px) rotateZ(0deg);
             }
@@ -145,10 +154,13 @@
         }
 
         @keyframes shadowPulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateZ(-80px) scale(0.95);
                 opacity: 0.65;
             }
+
             50% {
                 transform: translateZ(-80px) scale(0.78);
                 opacity: 0.38;
@@ -159,239 +171,132 @@
         /* Main 3D Card Chassis */
         .cell-3d {
             position: relative;
-            width: 440px;
-            height: 490px;
+            width: 360px;
+            height: 400px;
             transform-style: preserve-3d;
             transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
             will-change: transform;
         }
 
-        .cell-chassis {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            background: linear-gradient(140deg,
-                rgba(255, 255, 255, 0.95) 0%,
-                rgba(242, 244, 248, 0.88) 35%,
-                rgba(224, 229, 238, 0.92) 75%,
-                rgba(205, 212, 224, 0.98) 100%);
-            border-radius: 38px;
-            padding: 22px 22px 24px 22px;
-            box-shadow:
-                0 35px 70px -15px rgba(0, 0, 0, 0.32),
-                0 15px 30px -5px rgba(0, 0, 0, 0.18),
-                0 0 0 1.5px rgba(255, 255, 255, 0.9),
-                inset 0 2px 4px rgba(255, 255, 255, 0.9),
-                inset 0 -3px 8px rgba(0, 0, 0, 0.12);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Outer Glow / Rim Aura */
-        .cell-glow {
-            position: absolute;
-            inset: -4px;
-            border-radius: 42px;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.35), rgba(168, 85, 247, 0.25), rgba(236, 72, 153, 0.3));
-            filter: blur(20px);
-            opacity: 0.55;
-            z-index: -1;
-            transform: translateZ(-15px);
-            transition: opacity 0.5s ease, filter 0.5s ease;
-        }
-
-        .cell-stage:hover .cell-glow {
-            opacity: 0.85;
-            filter: blur(26px);
-        }
-
-        /* Corner Tech Brackets */
-        .cell-corner {
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            border-color: rgba(0, 0, 0, 0.35);
-            border-style: solid;
-            pointer-events: none;
-            transform: translateZ(28px);
-            transition: border-color 0.3s ease;
-        }
-
-        .corner-tl {
-            top: 10px;
-            left: 10px;
-            border-width: 2.5px 0 0 2.5px;
-            border-top-left-radius: 12px;
-        }
-
-        .corner-tr {
-            top: 10px;
-            right: 10px;
-            border-width: 2.5px 2.5px 0 0;
-            border-top-right-radius: 12px;
-        }
-
-        .corner-bl {
-            bottom: 10px;
-            left: 10px;
-            border-width: 0 0 2.5px 2.5px;
-            border-bottom-left-radius: 12px;
-        }
-
-        .corner-br {
-            bottom: 10px;
-            right: 10px;
-            border-width: 0 2.5px 2.5px 0;
-            border-bottom-right-radius: 12px;
-        }
-
-        .bolt {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #bbb, #555);
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-        }
-
-        .corner-tl .bolt { top: 3px; left: 3px; }
-        .corner-tr .bolt { top: 3px; right: 3px; }
-        .corner-bl .bolt { bottom: 3px; left: 3px; }
-        .corner-br .bolt { bottom: 3px; right: 3px; }
-
-        /* Cell Header & Footer Badges */
-        .cell-header-badge {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 8px 10px 8px;
-            transform: translateZ(32px);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 2.5px;
-            color: rgba(20, 20, 20, 0.75);
-            text-transform: uppercase;
-        }
-
-        .status-indicator {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .status-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: #10b981;
-            box-shadow: 0 0 8px #10b981;
-            animation: pulseStatus 2.2s infinite ease-in-out;
-        }
-
-        @keyframes pulseStatus {
-            0%, 100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.45;
-                transform: scale(0.85);
-            }
-        }
-
-        .cell-footer-badge {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 8px 0 8px;
-            transform: translateZ(32px);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: rgba(20, 20, 20, 0.6);
-            text-transform: uppercase;
-        }
-
-        /* Recessed Inner Chamber / Screen Bezel */
-        .cell-inner-chamber {
-            position: relative;
-            flex: 1;
-            width: 100%;
-            border-radius: 26px;
-            overflow: hidden;
-            transform-style: preserve-3d;
-            transform: translateZ(24px);
-            background: #0d1117;
-            box-shadow:
-                inset 0 6px 18px rgba(0, 0, 0, 0.7),
-                inset 0 -2px 8px rgba(255, 255, 255, 0.35),
-                0 6px 16px rgba(0, 0, 0, 0.22);
-            border: 2px solid rgba(255, 255, 255, 0.4);
-        }
-
-        /* Elevated Portrait Image with true 3D Parallax */
+        /* Floating Image */
         .cell-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
-            border-radius: 24px;
-            transform: translateZ(16px) scale(1.03);
+            border-radius: 38px;
+            box-shadow:
+                0 35px 70px -15px rgba(0, 0, 0, 0.32),
+                0 15px 30px -5px rgba(0, 0, 0, 0.18);
+            transform: translateZ(16px);
             transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease;
             filter: contrast(1.04) brightness(1.02);
             will-change: transform;
         }
 
         .cell-stage:hover .cell-image {
-            transform: translateZ(28px) scale(1.06);
+            transform: translateZ(28px) scale(1.03);
             filter: contrast(1.06) brightness(1.05);
-        }
-
-        /* Subtle Holographic Scanlines in Chamber */
-        .cell-scanlines {
-            position: absolute;
-            inset: 0;
-            border-radius: 24px;
-            background: linear-gradient(
-                rgba(255, 255, 255, 0) 50%,
-                rgba(0, 0, 0, 0.08) 50%
-            );
-            background-size: 100% 4px;
-            pointer-events: none;
-            opacity: 0.5;
-            transform: translateZ(32px);
-        }
-
-        /* Specular Glass Overlay with Dynamic Glare */
-        .cell-glare {
-            position: absolute;
-            inset: 0;
-            border-radius: 38px;
-            background: radial-gradient(
-                circle at 40% 30%,
-                rgba(255, 255, 255, 0.55) 0%,
-                rgba(255, 255, 255, 0.18) 35%,
-                rgba(255, 255, 255, 0) 70%
-            );
-            pointer-events: none;
-            transform: translateZ(48px);
-            mix-blend-mode: overlay;
-            opacity: 0.75;
-            transition: opacity 0.3s ease, background 0.1s linear;
-        }
-
-        .cell-stage:hover .cell-glare {
-            opacity: 0.95;
         }
 
         /* =========================================================
            RESPONSIVE BREAKPOINTS
            ========================================================= */
+
+        /* =========================================================
+           ORBITING TECH LOGOS SYSTEM
+           ========================================================= */
+
+        /* Faint 3D orbital trajectory track */
+        .orbit-track {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 760px;
+            height: 440px;
+            margin-left: -380px;
+            margin-top: -220px;
+            border-radius: 50%;
+            border: 1.5px dashed rgba(0, 0, 0, 0.12);
+            transform: rotateZ(-14deg);
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0.55;
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+
+        /* Orbit Node Anchors */
+        .orbit-node {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            pointer-events: auto;
+            will-change: transform, opacity, z-index;
+        }
+
+        /* Floating Logos */
+        .node-badge {
+            position: absolute;
+            top: -96px;
+            left: -96px;
+            width: 192px;
+            height: 192px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .node-logo {
+            width: 192px;
+            height: 192px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+            transition: transform 0.25s ease, filter 0.25s ease;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .orbit-node:hover .node-badge {
+            transform: scale(1.15) !important;
+            z-index: 60;
+        }
+
+        .orbit-node:hover .node-logo {
+            filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 24px var(--glow));
+        }
+
+        /* Tech Tooltip Label */
+        .node-tooltip {
+            position: absolute;
+            bottom: -105px;
+            left: 50%;
+            transform: translateX(-50%) translateY(4px);
+            background: #000000;
+            color: #ffffff;
+            padding: 4px 11px;
+            border-radius: 12px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            z-index: 70;
+        }
+
+        .orbit-node:hover .node-tooltip {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
 
         /* Medium screens */
         @media (max-width: 1200px) {
@@ -410,29 +315,37 @@
             }
 
             .cell-3d {
-                width: 360px;
-                height: 410px;
+                width: 300px;
+                height: 340px;
             }
 
-            .cell-chassis {
-                padding: 18px 18px 20px 18px;
+            .cell-image {
                 border-radius: 32px;
             }
 
-            .cell-glare {
-                border-radius: 32px;
+            .orbit-track {
+                width: 610px;
+                height: 350px;
+                margin-left: -305px;
+                margin-top: -175px;
             }
 
-            .cell-header-badge {
+            .node-badge {
+                top: -72px;
+                left: -72px;
+                width: 144px;
+                height: 144px;
+            }
+
+            .node-logo {
+                width: 144px;
+                height: 144px;
+            }
+
+            .node-tooltip {
                 font-size: 10px;
-                letter-spacing: 2px;
-                padding-bottom: 8px;
-            }
-
-            .cell-footer-badge {
-                font-size: 9px;
-                letter-spacing: 1.5px;
-                padding-top: 8px;
+                padding: 3px 9px;
+                bottom: -80px;
             }
         }
 
@@ -453,37 +366,37 @@
             }
 
             .cell-3d {
-                width: 285px;
-                height: 330px;
-            }
-
-            .cell-chassis {
-                padding: 14px 14px 16px 14px;
-                border-radius: 28px;
-            }
-
-            .cell-glare {
-                border-radius: 28px;
-            }
-
-            .cell-inner-chamber {
-                border-radius: 20px;
+                width: 235px;
+                height: 270px;
             }
 
             .cell-image {
-                border-radius: 18px;
+                border-radius: 28px;
             }
 
-            .cell-header-badge {
+            .orbit-track {
+                width: 440px;
+                height: 270px;
+                margin-left: -220px;
+                margin-top: -135px;
+            }
+
+            .node-badge {
+                top: -56px;
+                left: -56px;
+                width: 112px;
+                height: 112px;
+            }
+
+            .node-logo {
+                width: 112px;
+                height: 112px;
+            }
+
+            .node-tooltip {
                 font-size: 9px;
-                letter-spacing: 1.5px;
-                padding-bottom: 6px;
-            }
-
-            .cell-footer-badge {
-                font-size: 8px;
-                letter-spacing: 1px;
-                padding-top: 6px;
+                padding: 2px 7px;
+                bottom: -64px;
             }
         }
     </style>
@@ -496,146 +409,161 @@
 
         <div class="marquee-track">
 
-            <div class="moving-name">DON SAVIO THOMAS</div>
-            <div class="moving-name">DON SAVIO THOMAS</div>
-            <div class="moving-name">DON SAVIO THOMAS</div>
-            <div class="moving-name">DON SAVIO THOMAS</div>
+            <div class="moving-name"><span class="don-red">DON </span>SAVIO THOMAS</div>
+            <div class="moving-name"><span class="don-red">DON </span>SAVIO THOMAS</div>
+            <div class="moving-name"><span class="don-red">DON </span>SAVIO THOMAS</div>
+            <div class="moving-name"><span class="don-red">DON </span>SAVIO THOMAS</div>
 
-            <div class="moving-name">DON SAVIO THOMAS</div>
-            <div class="moving-name">DON SAVIO THOMAS</div>
-            <div class="moving-name">DON SAVIO THOMAS</div>
-            <div class="moving-name">DON SAVIO THOMAS</div>
+            <div class="moving-name"><span class="don-red">DON </span>SAVIO THOMAS</div>
+            <div class="moving-name"><span class="don-red">DON </span>SAVIO THOMAS</div>
+            <div class="moving-name"><span class="don-red">DON </span>SAVIO THOMAS</div>
+            <div class="moving-name"><span class="don-red">DON </span>SAVIO THOMAS</div>
 
         </div>
 
     </div>
 
-    <!-- 3D Interactive Cell Frame -->
+    <!-- 3D Interactive Cell Frame with Orbiting Logos -->
     <div class="cell-stage" id="cellStage">
         <div class="cell-float-wrapper">
+
+            <!-- Faint 3D Orbital Trajectory Track -->
+            <div class="orbit-track" id="orbitTrack"></div>
+
+            <!-- 3D Image (z-index: 10) -->
             <div class="cell-3d" id="cell3D">
 
                 <!-- Dynamic contact shadow underneath -->
                 <div class="cell-shadow" id="cellShadow"></div>
 
-                <!-- Main Frame Chassis -->
-                <div class="cell-chassis">
+                <img src="image.jpeg" alt="Don Savio Thomas" class="cell-image">
 
-                    <!-- Ambient Glow Aura -->
-                    <div class="cell-glow"></div>
+            </div>
 
-                    <!-- 4 Hardware / Tech Corner Brackets -->
-                    <div class="cell-corner corner-tl"><span class="bolt"></span></div>
-                    <div class="cell-corner corner-tr"><span class="bolt"></span></div>
-                    <div class="cell-corner corner-bl"><span class="bolt"></span></div>
-                    <div class="cell-corner corner-br"><span class="bolt"></span></div>
-
-                    <!-- Frame Header -->
-                    <div class="cell-header-badge">
-                        <span class="status-indicator">
-                            <span class="status-dot"></span>
-                            <span>LIVE CELL // 01</span>
-                        </span>
-                        <span>SAVIO.PORTRAIT</span>
-                    </div>
-
-                    <!-- Recessed Inner Chamber / Screen -->
-                    <div class="cell-inner-chamber">
-                        <img src="image.jpeg" alt="Don Savio Thomas" class="cell-image">
-                        <div class="cell-scanlines"></div>
-                    </div>
-
-                    <!-- Frame Footer -->
-                    <div class="cell-footer-badge">
-                        <span>DIM: 3D-PERSPECTIVE</span>
-                        <span>VER // 2.4.0</span>
-                    </div>
-
-                    <!-- Specular Glass Glare Shield -->
-                    <div class="cell-glare" id="cellGlare"></div>
-
+            <!-- 6 Orbiting Tech Nodes -->
+            <div class="orbit-node" data-index="0" data-label="Flutter"
+                style="--accent: #02569B; --glow: rgba(2, 86, 155, 0.45);">
+                <div class="node-badge">
+                    <img src="logos/flutter.png" alt="Flutter" class="node-logo">
+                    <span class="node-tooltip">Flutter</span>
                 </div>
             </div>
+
+            <div class="orbit-node" data-index="1" data-label="Git"
+                style="--accent: #F05032; --glow: rgba(240, 80, 50, 0.45);">
+                <div class="node-badge">
+                    <img src="logos/git.png" alt="Git" class="node-logo">
+                    <span class="node-tooltip">Git</span>
+                </div>
+            </div>
+
+            <div class="orbit-node" data-index="2" data-label="HTML5"
+                style="--accent: #E34F26; --glow: rgba(227, 79, 38, 0.45);">
+                <div class="node-badge">
+
+                    <span class="node-tooltip">HTML5</span>
+                </div>
+            </div>
+
+            <div class="orbit-node" data-index="3" data-label="JavaScript"
+                style="--accent: #E5A800; --glow: rgba(247, 223, 30, 0.5);">
+                <div class="node-badge">
+                    <img src="logos/javascript.png" alt="JavaScript" class="node-logo">
+                    <span class="node-tooltip">JavaScript</span>
+                </div>
+            </div>
+
+            <div class="orbit-node" data-index="4" data-label="MySQL"
+                style="--accent: #00758F; --glow: rgba(0, 117, 143, 0.45);">
+                <div class="node-badge">
+                    <img src="logos/mysql.png" alt="MySQL" class="node-logo">
+                    <span class="node-tooltip">MySQL</span>
+                </div>
+            </div>
+
+            <div class="orbit-node" data-index="5" data-label="VS Code"
+                style="--accent: #007ACC; --glow: rgba(0, 122, 204, 0.45);">
+                <div class="node-badge">
+                    <img src="logos/vscode.png" alt="VS Code" class="node-logo">
+                    <span class="node-tooltip">VS Code</span>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <!-- Interactive 3D Tilt Script -->
+    <!-- Floating Logo Animation Script -->
     <script>
         (function () {
-            const cellStage = document.getElementById('cellStage');
-            const cell3D = document.getElementById('cell3D');
-            const cellGlare = document.getElementById('cellGlare');
+            const orbitNodes = document.querySelectorAll('.orbit-node');
 
-            let targetRotateX = 0;
-            let targetRotateY = 0;
-            let currentRotateX = 0;
-            let currentRotateY = 0;
-            let glareX = 40;
-            let glareY = 30;
-            let targetGlareX = 40;
-            let targetGlareY = 30;
-            let isHovered = false;
+            // Inclination angle (-14 degrees)
+            const TILT_RAD = -14 * (Math.PI / 180);
+            const COS_TILT = Math.cos(TILT_RAD);
+            const SIN_TILT = Math.sin(TILT_RAD);
 
-            const MAX_TILT_DEG = 18;
-            const LERP_FACTOR = 0.08;
-
-            function updateMousePosition(clientX, clientY) {
-                const rect = cellStage.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-
-                // Normalize coordinates (-1 to 1) relative to window & stage
-                const normX = Math.max(-1, Math.min(1, (clientX - centerX) / (window.innerWidth * 0.45)));
-                const normY = Math.max(-1, Math.min(1, (clientY - centerY) / (window.innerHeight * 0.45)));
-
-                // Pitch (rotateX) is influenced by vertical position
-                // Yaw (rotateY) is influenced by horizontal position
-                targetRotateX = -normY * MAX_TILT_DEG;
-                targetRotateY = normX * MAX_TILT_DEG;
-
-                // Glare position (0% to 100%)
-                targetGlareX = 50 + normX * 40;
-                targetGlareY = 50 + normY * 40;
+            // Responsive orbital radii
+            function getOrbitalRadii() {
+                const w = window.innerWidth;
+                if (w <= 600) {
+                    return { rx: 320, ry: 240 };
+                } else if (w <= 1200) {
+                    return { rx: 400, ry: 300 };
+                } else {
+                    return { rx: 480, ry: 350 };
+                }
             }
 
-            // Window-wide mouse tracking for natural perspective feel
-            window.addEventListener('mousemove', (e) => {
-                updateMousePosition(e.clientX, e.clientY);
+            let { rx, ry } = getOrbitalRadii();
+            window.addEventListener('resize', () => {
+                const radii = getOrbitalRadii();
+                rx = radii.rx;
+                ry = radii.ry;
             });
 
-            // Touch support for mobile devices
-            window.addEventListener('touchmove', (e) => {
-                if (e.touches.length > 0) {
-                    updateMousePosition(e.touches[0].clientX, e.touches[0].clientY);
-                }
-            }, { passive: true });
-
-            cellStage.addEventListener('mouseenter', () => {
-                isHovered = true;
-            });
-
-            cellStage.addEventListener('mouseleave', () => {
-                isHovered = false;
-                targetRotateX = 0;
-                targetRotateY = 0;
-                targetGlareX = 40;
-                targetGlareY = 30;
-            });
-
-            // Animation render loop using smooth interpolation (lerp)
+            // Animation render loop — pure floating only, no mouse tracking
             function animate() {
-                // Smooth interpolation towards targets
-                currentRotateX += (targetRotateX - currentRotateX) * LERP_FACTOR;
-                currentRotateY += (targetRotateY - currentRotateY) * LERP_FACTOR;
+                const time = performance.now() * 0.0015;
 
-                glareX += (targetGlareX - glareX) * LERP_FACTOR;
-                glareY += (targetGlareY - glareY) * LERP_FACTOR;
+                // Custom angles: 3 on the right side, 3 on the left side
+                // Angles near 0 = right, angles near π = left
+                // Vertical spread of ±0.55 rad (~31°) keeps logos clear of top/bottom
+                const customAngles = [
+                    0.55,               // right — upper
+                    0.00,               // right — center
+                    -0.55,               // right — lower
+                    Math.PI - 0.55,     // left  — upper
+                    Math.PI,            // left  — center
+                    Math.PI + 0.55      // left  — lower
+                ];
 
-                const liftZ = isHovered ? 25 : 0;
+                orbitNodes.forEach((node, i) => {
+                    const nodeAngle = customAngles[i] ?? (i * (Math.PI * 2 / 6));
 
-                cell3D.style.transform = `rotateX(${currentRotateX.toFixed(2)}deg) rotateY(${currentRotateY.toFixed(2)}deg) translateZ(${liftZ}px)`;
+                    // Position on 2D ellipse (fixed points)
+                    const u = rx * Math.cos(nodeAngle);
+                    const v = ry * Math.sin(nodeAngle);
 
-                cellGlare.style.background = `radial-gradient(circle at ${glareX.toFixed(1)}% ${glareY.toFixed(1)}%, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.2) 35%, rgba(255, 255, 255, 0) 70%)`;
+                    // Rotate by inclination angle
+                    const baseX = u * COS_TILT - v * SIN_TILT;
+                    const baseY = u * SIN_TILT + v * COS_TILT;
+
+                    // Independent floating per node (no mouse influence)
+                    const floatY = Math.sin(time + i) * 12;
+
+                    const x = baseX;
+                    const y = baseY + floatY;
+
+                    // Depth value for z-ordering (front/behind card)
+                    const depth = Math.sin(nodeAngle);
+                    const scale = 0.94 + 0.16 * Math.abs(depth);
+                    const opacity = 1.0;
+                    const zIndex = 20;
+
+                    node.style.zIndex = zIndex;
+                    node.style.opacity = opacity.toFixed(2);
+                    node.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) scale(${scale.toFixed(2)})`;
+                });
 
                 requestAnimationFrame(animate);
             }
