@@ -25,6 +25,8 @@
             overflow-x: hidden;
             overflow-y: auto;
             background: white;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         body {
@@ -261,51 +263,93 @@
             }
         }
 
-        /* Mobile */
-        @media (max-width: 600px) {
+        /* Mobile Breakpoint (Smartphones & Tablets) */
+        @media (max-width: 768px) {
+            .hero-section {
+                height: 100dvh;
+                min-height: 540px;
+            }
 
             .marquee {
-                height: 170px;
+                top: 28%;
+                height: 150px;
             }
 
             .moving-name {
-                font-size: 155px;
-                letter-spacing: -9px;
-
-                -webkit-text-stroke: 3px #000;
-
-                margin-right: 25px;
+                font-size: 130px;
+                letter-spacing: -6px;
+                -webkit-text-stroke: 2.5px #000;
+                margin-right: 20px;
             }
 
             .portrait-img {
-                height: 100vh;
-                width: auto;
-                border-radius: 28px;
-            }
-
-            .orbit-track {
-                width: 440px;
-                height: 270px;
-                margin-left: -220px;
-                margin-top: -135px;
+                height: 68dvh;
+                max-height: 520px;
+                max-width: 86vw;
+                border-radius: 20px;
             }
 
             .node-badge {
-                top: -56px;
-                left: -56px;
-                width: 112px;
-                height: 112px;
+                top: -34px;
+                left: -34px;
+                width: 68px;
+                height: 68px;
             }
 
             .node-logo {
-                width: 112px;
-                height: 112px;
+                width: 68px;
+                height: 68px;
             }
 
             .node-tooltip {
                 font-size: 9px;
                 padding: 2px 7px;
-                bottom: -64px;
+                bottom: -44px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section {
+                height: 100dvh;
+                min-height: 500px;
+            }
+
+            .marquee {
+                top: 24%;
+                height: 110px;
+            }
+
+            .moving-name {
+                font-size: 92px;
+                letter-spacing: -4px;
+                line-height: 0.8;
+                -webkit-text-stroke: 2px #000;
+                margin-right: 15px;
+            }
+
+            .portrait-img {
+                height: 65dvh;
+                max-height: 440px;
+                max-width: 88vw;
+                border-radius: 16px;
+            }
+
+            .node-badge {
+                top: -27px;
+                left: -27px;
+                width: 54px;
+                height: 54px;
+            }
+
+            .node-logo {
+                width: 54px;
+                height: 54px;
+            }
+
+            .node-tooltip {
+                font-size: 8px;
+                padding: 2px 5px;
+                bottom: -34px;
             }
         }
 
@@ -689,32 +733,112 @@
             }
         }
 
-        @media (max-width: 600px) {
+        /* Mobile responsiveness for Social & About sections */
+        @media (max-width: 768px) {
+            .about-section {
+                padding: 60px 24px;
+                min-height: auto;
+            }
+
+            .about-inner {
+                flex-direction: column;
+                gap: 36px;
+                text-align: center;
+            }
+
+            .about-image {
+                width: 220px;
+                height: 280px;
+                margin: 0 auto;
+            }
+
+            .about-label {
+                justify-content: center;
+            }
+
+            .about-label::before {
+                display: none;
+            }
+
+            .about-heading {
+                font-size: clamp(34px, 8vw, 52px);
+                margin-bottom: 20px;
+            }
+
+            .about-bio {
+                font-size: 15px;
+                line-height: 1.7;
+                margin-bottom: 32px;
+            }
+
+            .about-divider {
+                margin: 0 auto 30px auto;
+            }
+
+            .about-skills {
+                justify-content: center;
+                margin-bottom: 36px;
+            }
+
+            .about-cta {
+                padding: 14px 32px;
+                font-size: 13px;
+            }
+
             .social-section {
-                padding: 80px 28px;
+                padding: 60px 20px 80px 20px;
+                min-height: auto;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .social-left-container {
+                position: relative;
+                top: auto;
+                left: auto;
+                width: 100%;
+                max-width: 100%;
+                align-items: center;
+                margin-bottom: 30px;
+                gap: 0;
+            }
+
+            .social-text-img {
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .social-gmail-btn {
+                margin-top: -30px;
+                display: flex;
+                justify-content: center;
+                width: 100%;
+            }
+
+            .social-gmail-btn img {
+                width: 45%;
+                max-width: 160px;
             }
 
             .social-inner {
                 position: relative;
                 bottom: auto;
                 right: auto;
-                margin: 400px auto 0 auto;
-            }
-
-            .social-heading {
-                font-size: 32px;
-                margin-bottom: 50px;
+                margin: 20px auto 0 auto;
+                width: 100%;
+                display: flex;
+                justify-content: center;
             }
 
             .social-grid {
-                width: 260px;
-                height: 260px;
+                width: 220px;
+                height: 220px;
             }
 
             .social-card {
-                width: 100px;
-                height: 100px;
-                margin: -50px 0 0 -50px;
+                width: 80px;
+                height: 80px;
+                margin: -40px 0 0 -40px;
             }
         }
     </style>
@@ -888,63 +1012,76 @@
             // Responsive orbital radii
             function getOrbitalRadii() {
                 const w = window.innerWidth;
-                if (w <= 600) {
-                    return { rx: 320, ry: 240 };
+                if (w <= 480) {
+                    return { rx: 130, ry: 175 };
+                } else if (w <= 768) {
+                    return { rx: 170, ry: 215 };
                 } else if (w <= 1200) {
-                    return { rx: 400, ry: 300 };
+                    return { rx: 340, ry: 240 };
                 } else {
                     return { rx: 480, ry: 350 };
                 }
             }
 
+            function getCustomAngles() {
+                const w = window.innerWidth;
+                if (w <= 768) {
+                    return [
+                        0.35,                // right — upper
+                        -0.35,               // right — lower
+                        -1.25,               // top — right
+                        Math.PI - 0.35,      // left — upper
+                        Math.PI + 0.35,      // left — lower
+                        Math.PI + 1.25       // top — left
+                    ];
+                } else {
+                    return [
+                        0.55,                // right — upper
+                        0.00,                // right — center
+                        -0.55,               // right — lower
+                        Math.PI - 0.55,      // left — upper
+                        Math.PI,             // left — center
+                        Math.PI + 0.55       // left — lower
+                    ];
+                }
+            }
+
             let { rx, ry } = getOrbitalRadii();
+            let customAngles = getCustomAngles();
+
             window.addEventListener('resize', () => {
                 const radii = getOrbitalRadii();
                 rx = radii.rx;
                 ry = radii.ry;
+                customAngles = getCustomAngles();
             });
 
-            // Animation render loop — pure floating only, no mouse tracking
+            // Animation render loop
             function animate() {
                 const time = performance.now() * 0.0015;
-
-                // Custom angles: 3 on the right side, 3 on the left side
-                // Angles near 0 = right, angles near π = left
-                // Vertical spread of ±0.55 rad (~31°) keeps logos clear of top/bottom
-                const customAngles = [
-                    0.55,               // right — upper
-                    0.00,               // right — center
-                    -0.55,               // right — lower
-                    Math.PI - 0.55,     // left  — upper
-                    Math.PI,            // left  — center
-                    Math.PI + 0.55      // left  — lower
-                ];
+                const isMobile = window.innerWidth <= 768;
+                const floatAmp = isMobile ? 6 : 12;
 
                 orbitNodes.forEach((node, i) => {
                     const nodeAngle = customAngles[i] ?? (i * (Math.PI * 2 / 6));
 
-                    // Position on 2D ellipse (fixed points)
                     const u = rx * Math.cos(nodeAngle);
                     const v = ry * Math.sin(nodeAngle);
 
-                    // Rotate by inclination angle
                     const baseX = u * COS_TILT - v * SIN_TILT;
                     const baseY = u * SIN_TILT + v * COS_TILT;
 
-                    // Independent floating per node (no mouse influence)
-                    const floatY = Math.sin(time + i) * 12;
+                    const floatY = Math.sin(time + i) * floatAmp;
 
                     const x = baseX;
                     const y = baseY + floatY;
 
-                    // Depth value for z-ordering (front/behind card)
                     const depth = Math.sin(nodeAngle);
-                    const scale = 0.94 + 0.16 * Math.abs(depth);
-                    const opacity = 1.0;
+                    const scale = isMobile ? (0.90 + 0.12 * Math.abs(depth)) : (0.94 + 0.16 * Math.abs(depth));
                     const zIndex = 20;
 
                     node.style.zIndex = zIndex;
-                    node.style.opacity = opacity.toFixed(2);
+                    node.style.opacity = '1.0';
                     node.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) scale(${scale.toFixed(2)})`;
                 });
 
