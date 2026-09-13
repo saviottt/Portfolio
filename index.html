@@ -7,6 +7,10 @@
 
     <title>Don Savio Thomas</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+
     <style>
         * {
             margin: 0;
@@ -495,35 +499,114 @@
         .social-section {
             width: 100%;
             min-height: 100vh;
-            background-color: #ffffff;
-            background-image: url('sleep.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            background: url('sleep.png') right center / 70% auto no-repeat,
+                linear-gradient(135deg, #0a0a0a 0%, #121212 50%, #1a1a1a 100%);
+            background-blend-mode: luminosity;
+            box-shadow: inset 0 0 220px 100px #000000;
             display: flex;
             flex-direction: column;
             align-items: left;
             justify-content: left;
             padding: 100px 60px;
             box-sizing: border-box;
+            position: relative;
+        }
+
+        .social-left-container {
+            position: absolute;
+            top: 60px;
+            left: 60px;
+            max-width: 700px;
+            width: 65%;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0px;
+        }
+
+        .social-text-img {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+            pointer-events: none;
+            display: block;
+            filter: grayscale(100%);
+        }
+
+        .social-gmail-btn {
+            display: block;
+            width: 100%;
+            margin-top: -60px;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .social-gmail-btn img {
+            width: 30%;
+            max-width: 30%;
+            height: auto;
+            display: block;
+            filter: grayscale(75%) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .social-gmail-btn:hover img {
+            transform: scale(1.03);
+            filter: grayscale(0%) drop-shadow(0 8px 20px rgba(0, 0, 0, 0.6));
         }
 
         .social-inner {
-            max-width: 1100px;
-            width: 100%;
-            text-align: center;
+            position: absolute;
+            bottom: 80px;
+            right: 80px;
+            width: auto;
         }
 
         .social-heading {
-            font-size: 70px;
+            font-size: 90px;
             font-weight: 900;
-            margin-bottom: 80px;
+            margin-bottom: 16px;
             letter-spacing: 2px;
             font-family: 'Outfit', -apple-system, sans-serif;
+            color: #ffffff;
+            line-height: 1.05;
         }
 
-        .social-heading span {
-            color: #ffffff;
+        .social-heading .word-lazy {
+            color: #a855f7;
+            position: relative;
+            display: inline-block;
+        }
+
+        .social-heading .word-lazy::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #a855f7;
+            border-radius: 2px;
+        }
+
+        .social-subheading {
+            color: rgba(255, 255, 255, 0.80);
+            font-size: 20px;
+            font-family: 'Outfit', -apple-system, sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .social-subheading-2 {
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 17px;
+            font-family: 'Caveat', cursive, -apple-system, sans-serif;
+            font-style: italic;
+            margin-bottom: 56px;
+            letter-spacing: 0.3px;
         }
 
         .social-grid {
@@ -564,18 +647,13 @@
         }
 
         .social-card:nth-child(2) {
-            top: 50%;
-            left: 100%;
+            top: 75%;
+            left: 93.3%;
         }
 
         .social-card:nth-child(3) {
-            top: 100%;
-            left: 50%;
-        }
-
-        .social-card:nth-child(4) {
-            top: 50%;
-            left: 0%;
+            top: 75%;
+            left: 6.7%;
         }
 
         .social-card img {
@@ -588,7 +666,7 @@
 
         .social-card:hover img {
             transform: scale(1.15);
-            filter: drop-shadow(0 8px 20px rgba(233, 30, 30, 0.6));
+            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.6));
         }
 
         @keyframes rotate-orbit {
@@ -614,6 +692,13 @@
         @media (max-width: 600px) {
             .social-section {
                 padding: 80px 28px;
+            }
+
+            .social-inner {
+                position: relative;
+                bottom: auto;
+                right: auto;
+                margin: 400px auto 0 auto;
             }
 
             .social-heading {
@@ -768,8 +853,14 @@
 
     <!-- ======= Let's Connect SECTION ======= -->
     <section class="social-section" id="social">
+        <div class="social-left-container">
+            <img src="Text.png" alt="" class="social-text-img">
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=donsavio1one@gmail.com&su=Portfolio%20Contact"
+                target="_blank" class="social-gmail-btn">
+                <img src="socialmedia/gmail.png" alt="Gmail">
+            </a>
+        </div>
         <div class="social-inner">
-            <h2 class="social-heading"> <span>Let's Connect</span></h2>
             <div class="social-grid">
                 <a href="https://github.com/saviottt" class="social-card">
                     <img src="socialmedia/github.png" alt="GitHub">
@@ -779,10 +870,6 @@
                 </a>
                 <a href="https://www.instagram.com/donsavio_1?stkn=MWg2bTg1YW10Mm96MA==" class="social-card">
                     <img src="socialmedia/instagram.png" alt="Instagram">
-                </a>
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=donsavio1one@gmail.com&su=Portfolio%20Contact"
-                    target="_blank" class="social-card">
-                    <img src="socialmedia/gmail.png" alt="Gmail">
                 </a>
             </div>
         </div>
