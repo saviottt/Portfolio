@@ -12,6 +12,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="loading.gif">
+
+    <noscript>
+        <style>
+            #preloader {
+                display: none !important;
+            }
+            body.loading {
+                overflow: auto !important;
+            }
+        </style>
+    </noscript>
 
     <style>
         * {
@@ -659,8 +671,8 @@ html, body {
         }
 
         .social-gmail-btn img {
-            width: 30%;
-            max-width: 30%;
+            width: 10%;
+            max-width: 10%;
             height: auto;
             display: block;
             filter: grayscale(75%) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
@@ -1004,7 +1016,7 @@ html, body {
             }
         }
 
-        /* =========================================================
+        /* ======================THOMAS===================================
            FOOTER
            ========================================================= */
 
@@ -1115,10 +1127,72 @@ html, body {
                 gap: 10px;
             }
         }
+
+        /* Loading Screen (Preloader) */
+        body.loading {
+            overflow: hidden !important;
+        }
+
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999999;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        #preloader img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            display: block;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            #preloader {
+                transition: none;
+            }
+        }
     </style>
 </head>
 
-<body>
+<body class="loading">
+
+    <!-- Loading Screen (Preloader) -->
+    <div id="preloader" role="status" aria-label="Loading page">
+        <img id="preloader-gif" src="loading.gif" alt="Loading..." width="150" height="150" fetchpriority="high">
+    </div>
+    <script>
+        window.__preloaderStart = performance.now();
+        (function() {
+            const gif = document.getElementById('preloader-gif');
+            if (gif) {
+                if (gif.complete) {
+                    window.__gifStartTime = performance.now();
+                } else {
+                    gif.addEventListener('load', function() {
+                        window.__gifStartTime = performance.now();
+                    }, { once: true });
+                }
+            }
+        })();
+    </script>
 
     <!-- ======= HERO SECTION ======= -->
     <div class="hero-section" id="home">
@@ -1228,7 +1302,7 @@ html, body {
             <img src="Text.png" alt="" class="social-text-img">
             <a href="https://mail.google.com/mail/?view=cm&fs=1&to=donsavio1one@gmail.com&su=Portfolio%20Contact"
                 target="_blank" class="social-gmail-btn">
-                <img src="socialmedia/gmail.png" alt="Gmail">
+                <img src="socialmedia/gmail.gif" alt="Gmail">
             </a>
         </div>
         <div class="social-inner">
@@ -1358,6 +1432,43 @@ html, body {
             }
 
             requestAnimationFrame(animate);
+        })();
+    </script>
+
+    <!-- Preloader Dismissal Script -->
+    <script>
+        (function () {
+            // Exact duration of one complete loop of loading.gif (109 frames = 3630ms)
+            const GIF_ROUND_DURATION = 3630;
+
+            function hidePreloader() {
+                const preloader = document.getElementById('preloader');
+                if (preloader && !preloader.classList.contains('fade-out')) {
+                    preloader.classList.add('fade-out');
+                    document.body.classList.remove('loading');
+                    setTimeout(() => {
+                        preloader.style.display = 'none';
+                    }, 500);
+                }
+            }
+
+            function scheduleHide() {
+                const startTime = window.__gifStartTime || window.__preloaderStart || performance.now();
+                const elapsed = performance.now() - startTime;
+                // Ensure at least 1 full round completes, and let any ongoing round finish cleanly
+                const rounds = Math.max(1, Math.round(elapsed / GIF_ROUND_DURATION));
+                const targetDuration = rounds * GIF_ROUND_DURATION;
+                const remaining = Math.max(0, targetDuration - elapsed);
+                setTimeout(hidePreloader, remaining);
+            }
+
+            if (document.readyState === 'complete') {
+                scheduleHide();
+            } else {
+                window.addEventListener('load', scheduleHide);
+                // Safety fallback in case external assets stall
+                setTimeout(hidePreloader, 10000);
+            }
         })();
     </script>
 </body>
